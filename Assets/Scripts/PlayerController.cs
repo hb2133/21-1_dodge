@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     public Rigidbody playerRigidbody;
     public float speed = 8f;
 
+    public int hp = 100;
+    public HPBar hpbar;
     void Start()
     {
         playerRigidbody = GetComponent <Rigidbody>();
@@ -32,5 +34,26 @@ public class PlayerController : MonoBehaviour
 
         GameManager gameManager = FindObjectOfType<GameManager>();
         gameManager.EndGame();
+    }
+
+    public void GetDamage(int damage)
+    {
+        hp -= damage;
+        hpbar.SetHP(hp);
+        Debug.Log(hp);
+        if(hp<=0)
+        {
+            Die();
+        }
+    }
+
+    public void GetHeal(int heal)
+    {
+        hp += heal;
+        if(hp>100)
+        {
+            hp = 100;
+        }
+        hpbar.SetHP(hp);
     }
 }
