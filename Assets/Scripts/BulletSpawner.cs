@@ -12,6 +12,8 @@ public class BulletSpawner : MonoBehaviour
     private float spawnRate; //생성주기
     private float timeAfterSpawn; //최근 생성 시점에서 지난 시간.
 
+    public int hp = 100;
+
     void Start()
     {
         timeAfterSpawn = 0f;
@@ -28,6 +30,16 @@ public class BulletSpawner : MonoBehaviour
             GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
             bullet.transform.LookAt(target);
             spawnRate = Random.Range(spawnRateMin, spawnRateMax);
+        }
+    }
+
+    public void GetDamage(int damage)
+    {
+        hp -= damage;
+
+        if(hp <= 0)
+        {
+            gameObject.SetActive(false);
         }
     }
 }
